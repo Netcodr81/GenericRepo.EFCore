@@ -1,7 +1,32 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Description>A package that can be used to implement a generic repository for Entity Framework Core. Includes both syncronous and asynchronous methods</Description>
+    <PackageIcon>NetcodrIcon256px.png</PackageIcon>
+    <PackageIconUrl />
+    <PackageProjectUrl>https://github.com/Netcodr81/GenericRepo.EFCore</PackageProjectUrl>
+    <PackageLicenseFile>License.txt</PackageLicenseFile>
+    <Authors>Mike Eckel</Authors>
+    <Company>NetCodr81</Company>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.8" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\Downloads\License.txt">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\..\Downloads\OneDrive-2021-08-01\NetcodrIcon256px.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 
 </Project>
