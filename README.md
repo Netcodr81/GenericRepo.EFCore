@@ -4,12 +4,12 @@
 You can install the latest package via Nuget package manager just search for *GenericRepo.EFCore*. You can also install via powershell using the following command.
 
 ```powershell
-Install-Package GenericRepo.EFCore -Version 1.0.0
+Install-Package GenericRepo.EFCore -Version 1.2.0
 ```
 Or via the donet CLI
 
 ```bash
-dotnet add package GenericRepo.EFCore --version 1.0.0
+dotnet add package GenericRepo.EFCore --version 1.2.0
 ```
 
 ## Using the package
