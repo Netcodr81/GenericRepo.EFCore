@@ -62,7 +62,7 @@ namespace GenericRepo.EFCore
             return dbSet.Find(id);
         }
 
-        public virtual IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, Expression<Func<TEntity, object>>[] includedProperties = null)
+        public virtual IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> filter = null, params Expression<Func<TEntity, object>>[] includedProperties)
         {
             try
             {
@@ -76,20 +76,19 @@ namespace GenericRepo.EFCore
                 }
 
                 // Include the specified properties
-                foreach (var includedProperty in includedProperties)
+
+                if (includedProperties != null)
                 {
-                    query = query.Include(includedProperty);
+
+                    foreach (var includedProperty in includedProperties)
+                    {
+                        query = query.Include(includedProperty);
+                    }
                 }
 
-                // Sort
-                if (orderBy != null)
-                {
-                    return orderBy(query).ToList();
-                }
-                else
-                {
-                    return query.ToList();
-                }
+                return query.ToList();
+
+
             }
             catch (Exception ex)
             {
@@ -102,7 +101,7 @@ namespace GenericRepo.EFCore
             return dbSet.ToList();
         }
 
-        public virtual async Task<List<TEntity>> GetAllAysnc()
+        public virtual async Task<List<TEntity>> GetAllAsync()
         {
             return await dbSet.ToListAsync();
         }
@@ -112,7 +111,7 @@ namespace GenericRepo.EFCore
             return await dbSet.FindAsync(id);
         }
 
-        public virtual async Task<IEnumerable<TEntity>> GetAsync(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, Expression<Func<TEntity, object>>[] includedProperties = null)
+        public virtual async Task<IEnumerable<TEntity>> GetAsync(Expression<Func<TEntity, bool>> filter = null, params Expression<Func<TEntity, object>>[] includedProperties)
         {
             try
             {
@@ -125,21 +124,18 @@ namespace GenericRepo.EFCore
                     query = query.Where(filter);
                 }
 
+
                 // Include the specified properties
-                foreach (var includeProperty in includedProperties)
+                if (includedProperties != null)
                 {
-                    query = query.Include(includeProperty);
+                    foreach (var includeProperty in includedProperties)
+                    {
+                        query = query.Include(includeProperty);
+                    }
                 }
 
-                // Sort
-                if (orderBy != null)
-                {
-                    return orderBy(query).ToList();
-                }
-                else
-                {
-                    return await query.ToListAsync();
-                }
+                return await query.ToListAsync();
+
             }
             catch (Exception ex)
             {
