@@ -29,6 +29,8 @@ dotnet add package GenericRepo.EFCore --version 1.0.0
         }
 
         public DbSet<Car> Cars { get; set; }
+        public DbSet<Model> Models { get;set; }
+        public DbSet<Make> Makes { get; set; }
 }
 ```
 2. Create a repository class that inherits GenericRepository<TEntity, TDbContext>
@@ -42,12 +44,22 @@ dotnet add package GenericRepo.EFCore --version 1.0.0
         }
     }
 ```
+
+This is how you can use the Get and GetAsync methods to include properties:
+```csharp
+public class TestClass {
+   var repo = new CarsRepo();
+   
+   var carQuery = repo.Get(x => x.OwnerName == "Smith", x => x.Make, x => x.Model);
+
+}
+```
 Thats it! This generic repository will give you access to the following generic methods:
 
 - Get(object id)
 - GetAsync(object id)
-- Get(filter, orderBy, includedProperties)
-- GetAsync(filter, orderBy, includedProperties)
+- Get(filter, includedProperties)
+- GetAsync(filter, includedProperties)
 - GetAll
 - GetAllAsync
 - Delete
@@ -56,3 +68,5 @@ Thats it! This generic repository will give you access to the following generic 
 - InsertAsync
 - Update
 - UpdateAsync
+
+*Special note: All methods are marked virtual. If you need to modify them for any reason, just override them*
