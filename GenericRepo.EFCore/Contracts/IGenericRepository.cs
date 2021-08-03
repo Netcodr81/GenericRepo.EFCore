@@ -11,18 +11,16 @@ namespace GenericRepo.EFCore.Contracts
 
         Task<TEntity> GetAsync(object id);
         TEntity Get(object id);
-        Task<List<TEntity>> GetAllAysnc();
+        Task<List<TEntity>> GetAllAsync();
         List<TEntity> GetAll();
 
         Task<IEnumerable<TEntity>> GetAsync(
-          Expression<Func<TEntity, bool>> filter = null,
-          Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-          Expression<Func<TEntity, object>>[] includedProperties = null);
+          Expression<Func<TEntity, bool>> filter = null,          
+          params Expression<Func<TEntity, object>>[] includedProperties);
 
         IEnumerable<TEntity> Get(
-           Expression<Func<TEntity, bool>> filter = null,
-           Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-             Expression<Func<TEntity, object>>[] includedProperties = null);
+           Expression<Func<TEntity, bool>> filter = null,           
+           params Expression<Func<TEntity, object>>[] includedProperties);
 
 
         Task<bool> DeleteAsync(TEntity entityToDelete);
