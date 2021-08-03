@@ -62,7 +62,7 @@ namespace GenericRepo.EFCore
             return dbSet.Find(id);
         }
 
-        public virtual IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, string includeProperties = "")
+        public virtual IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, Expression<Func<TEntity, object>>[] includedProperties = null)
         {
             try
             {
@@ -76,10 +76,9 @@ namespace GenericRepo.EFCore
                 }
 
                 // Include the specified properties
-                foreach (var includeProperty in includeProperties.Split
-                    (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                foreach (var includedProperty in includedProperties)
                 {
-                    query = query.Include(includeProperty);
+                    query = query.Include(includedProperty);
                 }
 
                 // Sort
@@ -113,7 +112,7 @@ namespace GenericRepo.EFCore
             return await dbSet.FindAsync(id);
         }
 
-        public virtual async Task<IEnumerable<TEntity>> GetAsync(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, string includeProperties = "")
+        public virtual async Task<IEnumerable<TEntity>> GetAsync(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, Expression<Func<TEntity, object>>[] includedProperties = null)
         {
             try
             {
@@ -127,8 +126,7 @@ namespace GenericRepo.EFCore
                 }
 
                 // Include the specified properties
-                foreach (var includeProperty in includeProperties.Split
-                    (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                foreach (var includeProperty in includedProperties)
                 {
                     query = query.Include(includeProperty);
                 }
