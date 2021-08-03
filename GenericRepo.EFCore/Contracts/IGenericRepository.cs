@@ -17,12 +17,12 @@ namespace GenericRepo.EFCore.Contracts
         Task<IEnumerable<TEntity>> GetAsync(
           Expression<Func<TEntity, bool>> filter = null,
           Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-          string includeProperties = "");
+          Expression<Func<TEntity, object>>[] includedProperties = null);
 
         IEnumerable<TEntity> Get(
            Expression<Func<TEntity, bool>> filter = null,
            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-           string includeProperties = "");
+             Expression<Func<TEntity, object>>[] includedProperties = null);
 
 
         Task<bool> DeleteAsync(TEntity entityToDelete);
