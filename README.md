@@ -45,12 +45,23 @@ dotnet add package GenericRepo.EFCore --version 1.2.0
     }
 ```
 
-This is how you can use the Get and GetAsync methods to include properties:
+This is how you can use the Get and GetAsync methods to include properties in version 1.2.0 +:
 ```csharp
 public class TestClass {
    var repo = new CarsRepo();
    
    var carQuery = repo.Get(x => x.OwnerName == "Smith", x => x.Make, x => x.Model);
+
+}
+```
+
+In version 1.0.0 you use the Get and GetAsync methods like this:
+
+```csharp
+public class TestClass {
+   var repo = new CarsRepo();
+   
+   var carQuery = repo.Get(x => x.OwnerName == "Smith", includedProperties: "Car.Make");
 
 }
 ```
