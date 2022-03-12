@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
@@ -11,15 +10,15 @@ namespace GenericRepo.EFCore.Contracts
 
         Task<TEntity> GetAsync(object id);
         TEntity Get(object id);
-        Task<List<TEntity>> GetAllAsync();
-        List<TEntity> GetAll();
+        Task<List<TEntity>> GetAllAsync(params Expression<Func<TEntity, object>>[] includedProperties);
+        List<TEntity> GetAll(params Expression<Func<TEntity, object>>[] includedProperties);
 
         Task<IEnumerable<TEntity>> GetAsync(
-          Expression<Func<TEntity, bool>> filter = null,          
+          Expression<Func<TEntity, bool>> filter = null,
           params Expression<Func<TEntity, object>>[] includedProperties);
 
         IEnumerable<TEntity> Get(
-           Expression<Func<TEntity, bool>> filter = null,           
+           Expression<Func<TEntity, bool>> filter = null,
            params Expression<Func<TEntity, object>>[] includedProperties);
 
 

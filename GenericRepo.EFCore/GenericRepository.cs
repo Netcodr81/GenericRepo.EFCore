@@ -96,14 +96,60 @@ namespace GenericRepo.EFCore
             }
         }
 
-        public virtual List<TEntity> GetAll()
+
+        public virtual List<TEntity> GetAll(params Expression<Func<TEntity, object>>[] includedProperties)
         {
-            return dbSet.ToList();
+            try
+            {
+                // Get the dbSet from the Entity passed in                
+                IQueryable<TEntity> query = dbSet;
+
+                // Include the specified properties
+
+                if (includedProperties != null)
+                {
+
+                    foreach (var includedProperty in includedProperties)
+                    {
+                        query = query.Include(includedProperty);
+                    }
+                }
+
+                return query.ToList();
+
+
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+
         }
 
-        public virtual async Task<List<TEntity>> GetAllAsync()
+
+        public virtual async Task<List<TEntity>> GetAllAsync(params Expression<Func<TEntity, object>>[] includedProperties)
         {
-            return await dbSet.ToListAsync();
+            try
+            {
+                // Get the dbSet from the Entity passed in                
+                IQueryable<TEntity> query = dbSet;
+
+                // Include the specified properties
+                if (includedProperties != null)
+                {
+                    foreach (var includeProperty in includedProperties)
+                    {
+                        query = query.Include(includeProperty);
+                    }
+                }
+
+                return await query.ToListAsync();
+
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
 
         public virtual async Task<TEntity> GetAsync(object id)
@@ -167,16 +213,16 @@ namespace GenericRepo.EFCore
 
         public virtual TEntity Update(TEntity entityToUpdate)
         {
-            dbSet.Attach(entityToUpdate);
-            context.Entry(entityToUpdate).State = EntityState.Modified;
+
+            context.Set<TEntity>().Update(entityToUpdate);
             context.SaveChanges();
             return entityToUpdate;
         }
 
         public virtual async Task<TEntity> UpdateAsync(TEntity entityToUpdate)
         {
-            dbSet.Attach(entityToUpdate);
-            context.Entry(entityToUpdate).State = EntityState.Modified;
+
+            context.Set<TEntity>().Update(entityToUpdate);
             await context.SaveChangesAsync();
             return entityToUpdate;
         }
