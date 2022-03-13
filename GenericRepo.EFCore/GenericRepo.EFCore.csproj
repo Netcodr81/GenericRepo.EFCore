@@ -12,7 +12,7 @@
     <Company>NetCodr81</Company>
     <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <FileVersion>2.0.0.0</FileVersion>
-    <PackageReleaseNotes>The included properties parameter updated from string[]  to an params Expression&lt;Func&lt;TEntity,objec&gt;&gt;[]. This allows user to use linq to include properties like they would if using EF Core's Include method. The order by parameter was removed from the Get and GetAsync methods. If you need it, continue to use v 1.0.0. An example of how to use the includes can be found on the project site.</PackageReleaseNotes>
+    <PackageReleaseNotes>The included properties parameter added to the GetAll() and GetAllAsync() methods. This allows user to use linq to include properties like they would if using EF Core's Include method. The Update and UpdateAsync methods have been updated to fix bug preventing relating properties from being updated.</PackageReleaseNotes>
     <Version>2.0.0</Version>
     <PackageReadmeFile></PackageReadmeFile>
   </PropertyGroup>
