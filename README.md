@@ -4,12 +4,12 @@
 You can install the latest package via Nuget package manager just search for *GenericRepo.EFCore*. You can also install via powershell using the following command.
 
 ```powershell
-Install-Package GenericRepo.EFCore -Version 2.0.0
+Install-Package GenericRepo.EFCore -Version 2.1.0
 ```
 Or via the donet CLI
 
 ```bash
-dotnet add package GenericRepo.EFCore --version 2.0.0
+dotnet add package GenericRepo.EFCore --version 2.1.0
 ```
 
 ## Using the package
@@ -45,6 +45,21 @@ dotnet add package GenericRepo.EFCore --version 2.0.0
         }
     }
 ```
+
+In version 2.1.0 the GenericRepositoryFactory class was added. This is a thread safe class for use in stateful applications like Blazor Server etc. You use this class the same way as the GenericRepository class except you add a DBContextFactory<T> instead of a DBContext<T> to the services. 
+  
+See Microsoft's Docs for more information
+[DbContext Lifetime, Configuration, and Initialization](https://docs.microsoft.com/en-us/ef/core/dbcontext-configuration/)
+  
+  ```csharp
+// GenericRepository
+  services.AddDbContext<GenericDbContext>();
+  
+// GenericRepositoryFactory
+  services.AddDbContextFactory<GenericDbContext>();
+```
+
+
 In version 2.0.0 + the ability to include related properties in the GetAll() and GetAllAsync() methods was added. The use is similar to that of the Get() and GetAsync() methods:
 
 ```csharp
